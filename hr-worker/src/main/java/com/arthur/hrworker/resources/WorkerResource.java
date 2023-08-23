@@ -21,10 +21,13 @@ import com.arthur.hrworker.repositories.WorkerRepository;
 @RestController
 @RequestMapping(value = "/workers")
 public class WorkerResource {
-
+	
 	private static Logger logger = LoggerFactory.getLogger(WorkerResource.class);
-
-	@Value("${test.config}")
+	
+	//No meu ambiente essa configuração para o acesso de um repositório privado 
+	//não está funcionando, portanto deixarei comentada somente para registro 
+	//da configuração correta. 
+	//@Value("${test.config}")
 	private String testConfig;
 	
 	@Autowired
@@ -37,20 +40,20 @@ public class WorkerResource {
 	public ResponseEntity<Void> getConfigs() {
 		logger.info("CONFIG = " + testConfig);
 		return ResponseEntity.noContent().build();
-	}
+	}		
 	
 	@GetMapping
 	public ResponseEntity<List<Worker>> findAll() {
 		List<Worker> list = repository.findAll();
 		return ResponseEntity.ok(list);
-	}
+	}	
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> findById(@PathVariable Long id) {
 		
 		try {
 			Thread.sleep(3000L);
-		} catch(InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
@@ -58,5 +61,5 @@ public class WorkerResource {
 		
 		Worker obj = repository.findById(id).get();
 		return ResponseEntity.ok(obj);
-	}
+	}	
 }
