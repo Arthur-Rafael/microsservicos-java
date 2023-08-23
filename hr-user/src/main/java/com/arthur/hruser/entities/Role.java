@@ -1,4 +1,4 @@
-package com.arthur.hrworker.entities;
+package com.arthur.hruser.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,24 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_worker")
-public class Worker implements Serializable{
+@Table(name = "tb_role")
+public class Role implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	private Double dailyIncome;
+	private String roleName;
 	
-	public Worker() {
+	
+	public Role() {
 	}
 
-	public Worker(Long id, String name, Double dailyIncome) {
+	public Role(Long id, String roleName) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.dailyIncome = dailyIncome;
+		this.roleName = roleName;
 	}
 
 	public Long getId() {
@@ -38,25 +37,17 @@ public class Worker implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Double getDailyIncome() {
-		return dailyIncome;
-	}
-
-	public void setDailyIncome(Double dailyIncome) {
-		this.dailyIncome = dailyIncome;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(roleName);
 	}
 
 	@Override
@@ -67,7 +58,7 @@ public class Worker implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Worker other = (Worker) obj;
-		return Objects.equals(id, other.id);
+		Role other = (Role) obj;
+		return Objects.equals(roleName, other.roleName);
 	}
 }
