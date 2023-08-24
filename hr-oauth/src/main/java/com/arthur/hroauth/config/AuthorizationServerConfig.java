@@ -1,6 +1,7 @@
 package com.arthur.hroauth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,6 +29,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
+	//Infelizmente o erro persiste em todo o sistema então será 
+	//a mesma coisa para esses dois atributos
+	//@Value("${oauth.client.name}")
+	private String name;
+	
+	//@Value("${oauth.client.secret}")
+	private String secret;
+	
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
@@ -36,7 +45,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
-		.withClient("myappname123")
+					//name
+		.withClient("myappname123")  //secret	
 		.secret(passwordEncoder.encode("myappsecret123"))
 		.scopes("read", "write")
 		.authorizedGrantTypes("password")
